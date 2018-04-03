@@ -18,8 +18,25 @@ var highBidder = initialBidder;
 // This function allows you to update your page in real-time when the firebase database changes.
 
 
+//Added in class  -- CO
+database.ref().on("value", function(snapshot) {
+    highBidder = $("#bidder-name").val().trim(); //captures the input and trims empty spaces
+    highPrice = $("#bidder-price").val().trim(); //captures the input and trims empty spaces
+  
+    database.ref().set({
+      highprice: highPrice, 
+      highbidder: highBidder
+    }); 
+  }); 
 // If Firebase has a highPrice and highBidder stored (first case)
 
+if (snapshot.child("highBidder").exists() && snapshot.child("highPrice").exists()) {
+    // do something here -- CO
+
+}
+else {
+    // do something here -- CO
+}
 
 // Set the variables for highBidder/highPrice equal to the stored values in firebase.
 // highPrice = ...
