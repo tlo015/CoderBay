@@ -5,8 +5,28 @@
 // Assign the reference to the database to a variable named 'database'
 //var database = ...
 
+// Initialize Firebase
+// Make sure to match the configuration to the script version number in the HTML
+// (Ex. 3.0 != 3.7.0)
 
-// Initial Values
+var config = {
+    apiKey: "AIzaSyDjX0cG4HMt7bMw0uwu24r6D4CmWorPQvw",
+    authDomain: "codersbay-bootcamp.firebaseapp.com",
+    databaseURL: "https://codersbay-bootcamp.firebaseio.com",
+    projectId: "codersbay-bootcamp",
+    storageBucket: "",
+    messagingSenderId: "700759619524"
+  };
+  
+  firebase.initializeApp(config);
+  
+  // VARIABLES
+  // --------------------------------------------------------------------------------
+  
+
+// Initial Valuesvar database = firebase.database();
+var database = firebase.database();
+
 var initialBid = 0;
 var initialBidder = "No one :-(";
 var highPrice = initialBid;
@@ -18,8 +38,30 @@ var highBidder = initialBidder;
 // This function allows you to update your page in real-time when the firebase database changes.
 
 
+//Added in class  -- CO
+database.ref().on("value", function(snapshot) {
+    var currentBidder = $("#bidder-name").val().trim(); //captures the input and trims empty spaces
+    var currentPrice = $("#bidder-price").val().trim(); //captures the input and trims empty spaces
+    
+    console.log(currentPrice); 
+    console.log(currentBidder); 
+    console.log(snapshot.val()); 
+
+    database.ref().set({
+      highprice: highPrice, 
+      highbidder: highBidder
+    }); 
+
+  }); 
 // If Firebase has a highPrice and highBidder stored (first case)
 
+// if (snapshot.child("highBidder").exists() && snapshot.child("highPrice").exists()) {
+//     // do something here -- CO
+
+// }
+// else {
+//     // do something here -- CO
+// }
 
 // Set the variables for highBidder/highPrice equal to the stored values in firebase.
 // highPrice = ...
